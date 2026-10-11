@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neural-cortex-encoder"
+version = "0.1.0"
+description = "Deterministic synthetic neural telemetry encoder for BCI experiments"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+visualization = ["matplotlib>=3.7"]
+decoder = ["torch>=2.2"]
+all = ["pytest>=8.0", "matplotlib>=3.7", "torch>=2.2"]
+
+[project.scripts]
+neural-encode = "neural_cortex_encoder.cli:main"
+neural-decode = "neural_cortex_decoder.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,29 @@
+# Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Generated model artifacts and training logs
+checkpoints/
+logs/
+*.pt
+*.pth
+*.ckpt
+
+# Generated signal corpus: kept locally or in external dataset storage
+data/corpus/
+data/**/*.npz
+
+# Generated visualizations and manual-test output
+assets/waterfalls/
+assets/*.png
+data/manual_waterfall.png
+
+# Local editor and operating-system files
+.vscode/*.log
+.DS_Store
+Thumbs.db
