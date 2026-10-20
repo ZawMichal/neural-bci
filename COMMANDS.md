@@ -1,4 +1,4 @@
-# Encoder Commands
+# Command Reference
 
 Run these commands from:
 
@@ -7,12 +7,8 @@ cd /home/michalzawitaj/bci-project
 source .venv/bin/activate
 ```
 
-This repository intentionally excludes the generated signal corpus,
-checkpoints, caches, and generated images from Git. The commands below assume
-that `data/corpus` has already been generated locally. The corpus is a derived
-artifact and is not required to clone the source repository.
-
-If the environment has not been installed yet:
+Generated signal files, checkpoints, caches, and images are ignored by Git.
+Create an environment and install the project if needed:
 
 ```bash
 python3 -m venv .venv
@@ -45,7 +41,7 @@ neural-encode encode \
   --plot assets/example.png
 ```
 
-## Visualize existing encoded data
+## Visualize encoded data
 
 Render five representative samples from an existing corpus without
 regenerating the signals:
@@ -57,10 +53,7 @@ neural-encode visualize \
   --count 5
 ```
 
-The resulting PNGs show channels as horizontal rows over time, using a
-black-to-navy-to-blue-to-cyan-to-yellow activity palette.
-
-Use a specific seed:
+Use a specific seed when encoding:
 
 ```bash
 neural-encode encode \
@@ -93,8 +86,8 @@ neural-encode labels \
   --seed 1000
 ```
 
-The current implementation generates one sample per label. The seed is
-calculated as:
+The implementation generates one sample per label. With `--seed 1000`, seeds
+are assigned as follows:
 
 ```text
 sample 000000 → seed 1000
@@ -103,8 +96,8 @@ sample 000002 → seed 1002
 ...
 ```
 
-Therefore, `--seed 1000` means “start the deterministic seed sequence at
-1000”; it does not mean “generate 1,000 recordings for every sentence.”
+`--seed 1000` starts the sequence at 1000; it does not create 1,000 recordings
+per sentence.
 
 The output filenames are stable:
 
@@ -114,8 +107,7 @@ data/corpus/sample_000001.npz
 ...
 ```
 
-Running the same export again with the same output directory overwrites those
-same files. It does not append another copy.
+Repeating an export overwrites the same files rather than appending duplicates.
 
 ## Inspect the label database
 
@@ -175,26 +167,7 @@ find data/corpus -maxdepth 1 -type f -name '*.npz' | wc -l
 python -m pytest -q
 ```
 
-## Important dataset note
-
-The current `labels` export creates one signal sample for each sentence. To
-create repeated recordings of every sentence, the corpus generator will need a
-separate repeated-seed option. That should produce, for example:
-
-```text
-30,000 labels × 5 recordings = 150,000 samples
-```
-
-Until that option is implemented, do not assume that a single export creates
-multiple recordings per sentence.
-
 ## Train and test the decoder
-
-Install PyTorch and the decoder package:
-
-```bash
-python -m pip install -e ".[all]"
-```
 
 Run a safe smoke test:
 
