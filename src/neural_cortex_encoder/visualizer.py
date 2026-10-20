@@ -8,7 +8,7 @@ import numpy as np
 
 
 def save_waterfall(signal: np.ndarray, path: str | Path, *, title: str = "") -> None:
-    """Save a black-to-blue-to-yellow heatmap without imposing plotting dependencies."""
+    """Save a textured black-to-blue-to-yellow heatmap."""
     try:
         import matplotlib.pyplot as plt
         from matplotlib.colors import LinearSegmentedColormap
@@ -21,8 +21,20 @@ def save_waterfall(signal: np.ndarray, path: str | Path, *, title: str = "") -> 
         "neural_activity",
         ["#000000", "#07134f", "#123f9b", "#00a8d6", "#f2d35e", "#fff4c2"],
     )
+    lower, upper = np.percentile(signal, [1.0, 99.5])
+    if upper <= lower:
+        lower, upper = float(signal.min()), float(signal.max())
+    if upper <= lower:
+        upper = lower + 1.0
     figure, axis = plt.subplots(figsize=(14, 7), facecolor="black")
-    axis.imshow(signal.T, aspect="auto", origin="lower", cmap=palette, vmin=0.0, vmax=1.0)
+    axis.imshow(
+        signal.T,
+        aspect="auto",
+        origin="lower",
+        cmap=palette,
+        vmin=float(lower),
+        vmax=float(upper),
+    )
     axis.set_facecolor("black")
     axis.set_xlabel("Time (frames)", color="white")
     axis.set_ylabel("Channel", color="white")

@@ -13,9 +13,15 @@ clinical results.
   character-level CTC training, evaluation, and manual inference.
 
 The encoder produces a `float32` signal with shape `(T, 1024)` and values in
-`[0, 1]`. The same normalized text, configuration, and seed always produce the
-same signal. The seed controls deterministic nuisance variation while keeping
-the character encoding stable.
+`[0, 1]`. Its 1,024 synthetic channels are arranged as a `32 x 32` spatial
+grid and grouped into 32 deterministic channel groups. These groups are an
+engineering abstraction, not a physical model of implant threads.
+
+The signal combines character fingerprints with deterministic context from
+neighboring characters, words, and the full sentence. This makes the same
+character vary with linguistic context while preserving the original
+transcript as the decoder target. It is a reproducible heuristic, not a model
+of human phonology or reading.
 
 The included SQLite catalog contains 30,000 synthetic communication-oriented
 sentences. It is a controlled benchmark, not a natural-language corpus.

@@ -63,6 +63,9 @@ neural-encode encode \
 ```
 
 The same sentence, configuration, and seed produce the same signal exactly.
+The encoder also adds deterministic context from neighboring characters,
+words, and the full sentence. A character therefore does not have one fixed
+signal fingerprint in every word.
 
 ## Create or recreate the label database
 
