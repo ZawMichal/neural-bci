@@ -67,3 +67,12 @@ neural-decode train \
 ```
 
 See [COMMANDS.md](./COMMANDS.md) for the complete command reference.
+
+## Example waterfall
+
+This example was generated from the current noisy, contextual encoder for
+`the decoder analyzes a neural signal`. It shows the 1,024 synthetic channels
+over time; the image is a visualization of the generated signal, not human
+neural data.
+
+![Example contextual waterfall](./assets/showcase/contextual-example.png)
